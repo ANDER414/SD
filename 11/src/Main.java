@@ -47,63 +47,73 @@ public class Main {
 	}
 
 	public static void launchClients() throws IOException{
+                            
+                          
 		try {
                       while(true==true){
-                          BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-                            String numar = reader.readLine();
-                            int nr =Integer.parseInt(numar);
-                            switch (nr){
-                              /*  case 100:
-                                    System.out.println("Wrong command");
-                                    break;*/
-                                case 1:
-                            // creare+scriere fisier
-                            char[] xz;
-                            byte[] data;
+                          System.out.println("*creare* - Creare / scriere fisier \n*citire* - Citire fisier\n*afisare* - Citire folder\n*stergere* - Stergere fisier\n*exit* - Exit" );
+                     
+                          
+                            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+                            String comanda = reader.readLine();
+                              
+                            switch (comanda){
+                                case "creare":
+                                // creare+scriere fisier
+                                char[] ss;
+                                byte[] data;
                                 Client c1 = new Client();
-        System.out.println("Ati selectat comanda write(introduceti numele fisierului in care doriti sa scrieti)" );
-        System.out.println();
-        String filename = reader.readLine();
-        System.out.println("Introduceti textul: " );
-        System.out.println();
-        String text = reader.readLine();
-        xz = text.toCharArray();
-        data = new byte[xz.length];
-        for (int i = 0; i < xz.length; i++) {
-            data[i] = (byte) xz[i];
-        }
-        c1.write(filename, data);                               
+                                System.out.println("Introduceti numele fisierului pe care doriti sa scrieti: " );
+                                System.out.println();
+                                String filename = reader.readLine() + ".txt";
+                                System.out.println("Introduceti textul: " );
+                                System.out.println();
+                                String text = reader.readLine();
+                                ss = text.toCharArray();
+                                data = new byte[ss.length];
+                                for (int i = 0; i < ss.length; i++) {
+                                    data[i] = (byte) ss[i];
+                                }
+                                c1.write(filename, data);                               
                                     break;
-                                case 2:
+                                    
+                                case "citire":
                                     // citire fisiere
                                     Client c = new Client();
-                                    System.out.println("Scrieti numele fisierului:");
-                          String fisier = reader.readLine();
-                          String str = new String(c.read(fisier));
-                          System.out.println("Continutul: ");
-                          System.out.println(str);
+                                    System.out.println("Introduceti numele fisierului pe care doriti sa-l cititi: ");
+                                    String fisier = reader.readLine() + ".txt";
+                                    String str = new String(c.read(fisier));
+                                    System.out.println("Continutul fisierului: ");
+                                    System.out.println(str);
                                     break;
-                                case 3:
-                                   // stergere fisiere
-                                    System.out.println("Numele fisierului:");
-                          String fisierdel = reader.readLine();
-                          for (int x = 0; x < 3; x++) { 
-            String fileName = "C:\\Users\\fushi\\Documents\\NetBeansProjects\\11\\Replica_" + x + "\\" + fisierdel;
-                          Files.deleteIfExists(Paths.get(fileName));
-                          }
-                          System.out.println("Fisierul a fost distrus");
-                                    break;
-                                case 4:
-                                    // afisare continut folder
+                                    
+                                case "afisare":
+                                   // afisare continut folder
                                    Client c3 = new Client(); // creare client nou 
-                                   File directoryPath = new File("C:\\Users\\fushi\\Documents\\NetBeansProjects\\11\\Replica_0");
+                                   File directoryPath = new File("C:\\\\Users\\\\fushi\\\\Documents\\\\NetBeansProjects\\\\11\\\\Replica_0");
                                            String contents[] = directoryPath.list();
+                                           System.out.println("Fisiere: ");
                                            for (int i = 0; i < contents.length; i++)
-                                     System.out.println(contents[i]);
+                                            System.out.println(contents[i]);
                                     break;
-                                case 0:
-                                    System.out.println( "FINAL");
+                                    
+                                case "stergere":
+                                   // stergere fisiere
+                                    System.out.println("Numele fisierului: ");
+                                    String fisierdel = reader.readLine() + ".txt";
+                                    for (int x = 0; x < 3; x++) { 
+                                      String fileName = "C:\\\\Users\\\\fushi\\\\Documents\\\\NetBeansProjects\\\\11\\\\Replica_" + x + "\\" + fisierdel;
+                                    Files.deleteIfExists(Paths.get(fileName));
+                                    }
+                                    System.out.println("Fisierul a fost sters");
+                                    break;
+                                    
+                                case "exit":
+                                    System.out.println("Exit");
                                     System.exit(0);
+                                default:
+                                    System.out.println("Comanda gresita");
+                                    break;
                             }
                         }
 		} catch (NotBoundException | IOException | MessageNotFoundException e) {
